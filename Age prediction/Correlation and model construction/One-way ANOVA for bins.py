@@ -3,28 +3,23 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
-
 os.chdir(r"C:\Users\32766\Desktop")
 data = pd.read_excel(r"C:\Users\32766\Desktop\RF.xlsx", header=0)
-
-plt.style.use('ggplot')  # 使用ggplot的绘图风格
-plt.rcParams['axes.facecolor'] = 'white'  # 设置背景颜色为白色
-plt.rcParams['font.family'] = 'Times New Roman'  # 设置字体为Times New Roman
+plt.style.use('ggplot')
+plt.rcParams['axes.facecolor'] = 'white'
+plt.rcParams['font.family'] = 'Times New Roman'
 my_pal_gender = {"bins = 10":'#376EAB', "bins = 15":'#318B7C',"bins = 20":'#D9730D',
                  "bins = 25":'#6748A6',"bins = 30":'#DA9700',"bins = 35": '#267C9E'}
-# 创建图形
 fig, ax = plt.subplots(figsize=(9,4))
-# 性别比较小提琴图
 # Violin plot
 sns.violinplot(ax=ax, x=data["bins"], y=data["error"], bw_method=0.3, linewidth=1, width=0.7, alpha=1.0,
                palette=my_pal_gender, hue=None, scale='area', inner=None, saturation=0.9)
-
 # Boxplot
 sns.boxplot(ax=ax, x=data["bins"], y=data["error"], color="black", width=.10, zorder=10,
             showcaps=True, boxprops={'facecolor': 'none', "zorder": 10},
             showfliers=True, whiskerprops={'linewidth': 0.5, "zorder": 10},
             saturation=0.3, orient="v")
-# 性别整体方差分析
+# Overall variance analysis
 group1 = data[data["bins"] == "bins = 10"]["error"]
 group2 = data[data["bins"] == "bins = 15"]["error"]
 group3 = data[data["bins"] == "bins = 20"]["error"]
@@ -45,4 +40,4 @@ ax.spines['bottom'].set_edgecolor('black')
 ax.spines['bottom'].set_linewidth(1.2)
 ax.set_xlabel('')
 ax.set_title('RF')
-plt.show()  # 显示图形
+plt.show()
